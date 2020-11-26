@@ -1,21 +1,21 @@
 <template>
   <div class="container">
     <div class="login-wrap">
-      <form class="login-form">
+      <form class="login-form" @submit.prevent="login">
         <span class="login-form-title">
           Sign In
         </span>
 
         <div class="input-wrap">
-          <input type="text" class="form-input" name="name" placeholder="Username">
+          <input required v-model="username" type="text" class="form-input" placeholder="Username">
         </div>
 
         <div class="input-wrap">
-          <input type="password" name="password" id="password" class="form-input" placeholder="Password">
+          <input required v-model="password" type="password" class="form-input" placeholder="Password">
         </div>
 
         <div class="button-wrap">
-          <button @click.prevent="onSubmitHandler" class="login-form-button">
+          <button type="submit" class="login-form-button">
             Sign in
           </button>
         </div>
@@ -30,9 +30,19 @@ import axios from 'axios'
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      username: '',
+      password: ''
+    }
+  },
   methods: {
-    onSubmitHandler() {
-      console.log('Form submitted!')
+    login() {
+      const { username, password } = this
+      this.$store.dispatch('login', { username, password })
+        .then(() => { this.$router.push('/about') })
+        .catch(err => console.error('Всё хуйня, переделывай!', err.response.data.errorText))
+      console.log('User:', {username, password})
     }
   }
 }
