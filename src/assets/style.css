@@ -137,13 +137,43 @@
   display: grid;
   grid-template-rows: repeat(2, 50px);
   list-style: none;
+  width: 100%;
 }
 
 .navigation-item {
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: #ffffff;
 }
 
-.navigation-item:hover {
+.navigation-item .navigation-link:hover {
   cursor: pointer;
+  color:#F1C40F;
+}
+
+.navigation-link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.active {
+  background: #A9DFBF;
+}
+
+.active .navigation-link {
+  color: #000000;
+}
+
+.active .navigation-link:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+.main {
+  padding: 30px;
+}
+
+.user-name {
+  margin-bottom: 50px;
 }

@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
-    
+    <MainLayout>
+      <router-view />
+    </MainLayout>    
   </div>
 </template>
 
@@ -10,7 +11,11 @@
 </style>
 
 <script>
+import MainLayout from '@/layouts/MainLayout.vue'
+
 export default {
-  
+  components: {
+    MainLayout
+  }
 }
 </script>
