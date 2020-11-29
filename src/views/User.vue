@@ -1,6 +1,6 @@
 <template>
   <div class="user-info">
-    <h2 class="user-name">{{ user.fullName }}</h2>
+    <h2 class="system-heading">{{ user.fullName }}</h2>
     <div>
       <b>Login: </b>
       <span>{{ user.login }}</span>

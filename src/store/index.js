@@ -10,7 +10,8 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     loginInfo: {},
-    user: {}
+    user: {},
+    objects: []
   },
   mutations: {
     auth_request(state) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     setUserInfo(state, data) {
       state.user = data
+    },
+    setObjectsInfo(state, data) {
+      state.objects = [...data]
     }
   },
   actions: {
@@ -66,13 +70,21 @@ export default new Vuex.Store({
       .then(resp => {
         commit('setUserInfo', resp.data)
       })
-      // console.log('getUserInfo:', this.state.user.fullName)
+    },
+    getObjectsInfo({commit}) {
+      axios.get('http://aspt.tgc2-energo.ru/points', {
+        headers: { 'Authorization' : `Bearer ${this.state.token}`}
+      })
+      .then(resp => {
+        commit('setObjectsInfo', resp.data)
+      })
     }
   },
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
-    getUserInfo: state => state.user
+    getUserInfo: state => state.user,
+    getObjectsInfo: state => state.objects
   },
   modules: {
   }

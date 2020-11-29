@@ -40,7 +40,6 @@ export default {
       this.$store.dispatch('login', { username, password })
         .then(() => { this.$router.push('/about') })
         .catch(err => console.error(err.response.data.errorText))
-      console.log('User:', {username, password})
     }
   }
 }

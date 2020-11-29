@@ -14,7 +14,7 @@
           <a href="#" class="navigation-link">{{link.title}}</a>
         </router-link>
       </ul>
-      <span @click="logout" class="logout" title="Logout">Logout</span>
+      <span @click="logout" class="logout">Logout</span>
     </nav>
     <div class="main">
       <router-view />
