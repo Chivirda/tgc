@@ -108,3 +108,42 @@
   background-color: #1b3815;
   cursor: pointer;
 }
+
+.logout {
+  align-self: flex-end;
+  padding-bottom: 30px;
+}
+
+.logout:hover {
+  cursor: pointer;
+}
+
+.about {
+  display: grid;
+  grid-template-columns: 150px auto;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100vh;
+  background-color: #27AE60;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+}
+
+.navigation-list {
+  display: grid;
+  grid-template-rows: repeat(2, 50px);
+  list-style: none;
+}
+
+.navigation-item {
+  display: flex;
+  align-items: center;
+}
+
+.navigation-item:hover {
+  cursor: pointer;
+}

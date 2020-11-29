@@ -29,19 +29,17 @@
 import axios from 'axios'
 
 export default {
-  name: 'Home',
-  data() {
-    return {
+  name: 'login',
+  data: () => ({
       username: '',
       password: ''
-    }
-  },
+  }),
   methods: {
     login() {
       const { username, password } = this
       this.$store.dispatch('login', { username, password })
         .then(() => { this.$router.push('/about') })
-        .catch(err => console.error('Всё хуйня, переделывай!', err.response.data.errorText))
+        .catch(err => console.error(err.response.data.errorText))
       console.log('User:', {username, password})
     }
   }

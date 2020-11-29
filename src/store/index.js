@@ -9,16 +9,17 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
+    loginInfo: {},
     user: {}
   },
   mutations: {
     auth_request(state) {
       state.status = 'loading'
     },
-    auth_success(state, token, user) {
+    auth_success(state, token, loginInfo) {
       state.status = 'success',
       state.token = token,
-      state.user = user
+      state.loginInfo = loginInfo
     },
     auth_error(state) {
       state.status = 'error'
@@ -26,19 +27,21 @@ export default new Vuex.Store({
     logout(state) {
       state.status = '',
       state.token = ''
+    },
+    setUserInfo(state, data) {
+      state.user = data
     }
   },
   actions: {
-    login({commit}, user) {
+    login({commit}, loginInfo) {
       return new Promise((resolve, reject) => {
         commit('auth_request')
-        axios.post('http://aspt.tgc2-energo.ru/token', qs.stringify(user))
+        axios.post('http://aspt.tgc2-energo.ru/token', qs.stringify(loginInfo))
           .then(resp => {
             const token = resp.data.access_token
-            const user = resp.data.user
+            const loginInfo = resp.data.loginInfo
             localStorage.setItem('token', token)
-            commit('auth_success', token, user)
-            console.info('Auth success! Token:', token)
+            commit('auth_success', token, loginInfo)
             resolve(resp)
           })
           .catch(err => {
@@ -49,17 +52,27 @@ export default new Vuex.Store({
       })
     },
     logout({commit}) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         commit('logout')
         localStorage.removeItem('token')
         delete axios.defaults.headers.common['Authorization']
         resolve()
       })
+    },
+    getUserInfo({commit}) {
+      axios.get('http://aspt.tgc2-energo.ru/user', {
+        headers: { 'Authorization' : `Bearer ${this.state.token}`}
+      })
+      .then(resp => {
+        commit('setUserInfo', resp.data)
+      })
+      // console.log('getUserInfo:', this.state.user.fullName)
     }
   },
   getters: {
     isLoggedIn: state => !!state.token,
-    authStatus: state => state.status
+    authStatus: state => state.status,
+    getUserInfo: state => state.user
   },
   modules: {
   }
