@@ -177,3 +177,28 @@
 .system-heading {
   margin-bottom: 50px;
 }
+
+.table {
+  min-width: 60%;
+  border-collapse: collapse;
+}
+
+tr.first-column {
+  max-width: 300px;
+}
+
+th {
+  font-weight: normal;
+  color: #ffffff;
+  padding: 10px 15px;
+  border: 1px solid #AED6F1;
+  background-color: #212F3D;
+}
+
+td {
+  color: #669;
+  border: 1px solid #AED6F1;
+  padding: 10px 15px;
+}
+
+tr:nth-child(2n) {background: #e8edff;}
