@@ -179,12 +179,13 @@
 }
 
 .table {
-  min-width: 60%;
+  max-width: 960px;
+  min-width: 80%;
   border-collapse: collapse;
 }
 
-tr.first-column {
-  max-width: 300px;
+.first-column {
+  width: 150px;
 }
 
 th {
@@ -202,3 +203,17 @@ td {
 }
 
 tr:nth-child(2n) {background: #e8edff;}
+
+tr:hover {
+  cursor: pointer;
+  background-color: #CACFD2;
+  transition: ease-in 0.2s;
+}
+
+tr:hover > td {
+  color: #ffffff;
+}
+
+tr:hover > th {
+  pointer-events: none;
+}

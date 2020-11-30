@@ -11,7 +11,9 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     loginInfo: {},
     user: {},
-    objects: []
+    objects: [],
+    objectInfo: [],
+    currentObject: {}
   },
   mutations: {
     auth_request(state) {
@@ -34,6 +36,12 @@ export default new Vuex.Store({
     },
     setObjectsInfo(state, data) {
       state.objects = [...data]
+    },
+    setObjectIndications(state, data) {
+      state.objectInfo = data
+    },
+    setCurrentObject(state, object) {
+      state.currentObject = object
     }
   },
   actions: {
@@ -84,13 +92,26 @@ export default new Vuex.Store({
           resolve(resp.data)
         })
       })
+    },
+    getObjectIndications({commit}, objectId) {
+      return new Promise((resolve) => {
+        axios.get(`http://aspt.tgc2-energo.ru/indication/${objectId}`, {
+          headers: { 'Authorization' : `Bearer ${this.state.token}`}
+        })
+        .then(resp => {
+          commit('setObjectIndications', resp.data)
+          console.log('getObjectIndications', resp.data)
+          resolve(resp.data)
+        })
+      })
+    },
+    setCurrentObject({commit}, object) {
+      commit('setCurrentObject', object)
     }
   },
   getters: {
     isLoggedIn: state => !!state.token,
-    authStatus: state => state.status,
-    getUserInfo: state => state.user,
-    getObjectsInfo: state => state.objects
+    authStatus: state => state.status
   },
   modules: {
   }
