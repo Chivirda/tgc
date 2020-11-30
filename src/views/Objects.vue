@@ -1,7 +1,7 @@
 <template>
   <div class="objects">
     <h2 class="system-heading">Объекты учёта</h2>
-    {{objects}}
+    {{ objects }}
     <table>
       <tr>
         <th></th>
@@ -13,10 +13,11 @@
 <script>
 export default {
   name: 'objects',
-  computed: {
-    objects() {
-      return this.$store.getters.getObjectsInfo
-    }
+  data: () => ({
+    objects: []
+  }),
+  async mounted() {
+    this.objects = await this.$store.dispatch('getObjectsInfo')
   }
 }
 </script>

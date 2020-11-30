@@ -64,19 +64,25 @@ export default new Vuex.Store({
       })
     },
     getUserInfo({commit}) {
-      axios.get('http://aspt.tgc2-energo.ru/user', {
+      return new Promise((resolve) => {
+        axios.get('http://aspt.tgc2-energo.ru/user', {
         headers: { 'Authorization' : `Bearer ${this.state.token}`}
-      })
-      .then(resp => {
-        commit('setUserInfo', resp.data)
+        })
+        .then(resp => {
+          commit('setUserInfo', resp.data)
+          resolve(resp.data)
+        })
       })
     },
     getObjectsInfo({commit}) {
-      axios.get('http://aspt.tgc2-energo.ru/points', {
+      return new Promise((resolve) => {
+        axios.get('http://aspt.tgc2-energo.ru/points', {
         headers: { 'Authorization' : `Bearer ${this.state.token}`}
-      })
-      .then(resp => {
-        commit('setObjectsInfo', resp.data)
+        })
+        .then(resp => {
+          commit('setObjectsInfo', resp.data)
+          resolve(resp.data)
+        })
       })
     }
   },

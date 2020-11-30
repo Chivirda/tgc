@@ -15,10 +15,11 @@
 <script>
 export default {
   name: 'User',
-  computed: {
-    user() {
-      return this.$store.getters.getUserInfo
-    }
+  data: () => ({
+    user: {}
+  }),
+  async mounted() {
+    this.user = await this.$store.dispatch('getUserInfo')
   }
 }
 </script>
