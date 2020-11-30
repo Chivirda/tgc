@@ -26,15 +26,12 @@
 export default {
   name: 'indications',
   data: () => ({
+    currentObject: {},
     indications: []
   }),
   async mounted() {
+    this.currentObject = await this.$store.state.currentObject
     this.indications = await this.$store.dispatch('getObjectIndications', this.currentObject.id)
-  },
-  computed: {
-    currentObject() {
-      return this.$store.state.currentObject
-    }
   }
 }
 </script>

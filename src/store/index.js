@@ -13,7 +13,10 @@ export default new Vuex.Store({
     user: {},
     objects: [],
     objectInfo: [],
-    currentObject: {}
+    currentObject: {
+      id: localStorage.getItem('currentObjectId') || '',
+      pointName: localStorage.getItem('currentObjectName') || ''
+    }
   },
   mutations: {
     auth_request(state) {
@@ -100,12 +103,13 @@ export default new Vuex.Store({
         })
         .then(resp => {
           commit('setObjectIndications', resp.data)
-          console.log('getObjectIndications', resp.data)
           resolve(resp.data)
         })
       })
     },
     setCurrentObject({commit}, object) {
+      localStorage.setItem('currentObjectId', object.id)
+      localStorage.setItem('currentObjectName', object.pointName)
       commit('setCurrentObject', object)
     }
   },
