@@ -217,3 +217,25 @@ tr:hover > td {
 tr:hover > th {
   pointer-events: none;
 }
+
+.btn-wrapper {
+  max-width: 960px;
+  min-width: 80%;
+  margin-top: 30px;
+}
+
+.btn-add {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #48C9B0;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.btn-add:hover {
+  cursor: pointer;
+  background-color: #1ABC9C;
+}

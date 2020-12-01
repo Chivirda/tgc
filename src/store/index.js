@@ -67,7 +67,7 @@ export default new Vuex.Store({
       })
     },
     logout({commit}) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         commit('logout')
         localStorage.removeItem('token')
         delete axios.defaults.headers.common['Authorization']
@@ -75,7 +75,7 @@ export default new Vuex.Store({
       })
     },
     getUserInfo({commit}) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         axios.get('http://aspt.tgc2-energo.ru/user', {
         headers: { 'Authorization' : `Bearer ${this.state.token}`}
         })
@@ -86,7 +86,7 @@ export default new Vuex.Store({
       })
     },
     getObjectsInfo({commit}) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         axios.get('http://aspt.tgc2-energo.ru/points', {
         headers: { 'Authorization' : `Bearer ${this.state.token}`}
         })
@@ -97,7 +97,7 @@ export default new Vuex.Store({
       })
     },
     getObjectIndications({commit}, objectId) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         axios.get(`http://aspt.tgc2-energo.ru/indication/${objectId}`, {
           headers: { 'Authorization' : `Bearer ${this.state.token}`}
         })
@@ -111,6 +111,18 @@ export default new Vuex.Store({
       localStorage.setItem('currentObjectId', object.id)
       localStorage.setItem('currentObjectName', object.pointName)
       commit('setCurrentObject', object)
+    },
+    addIndications(indications) {
+      return new Promise(resolve => {
+        axios.post(`http://aspt.tgc2-energo.ru/indication/${indications}`, {
+          headers: { 
+            'Authorization' : `Bearer ${this.state.token}`
+          }
+        })
+        .then(resp => {
+          resolve(resp.data)
+        })
+      })
     }
   },
   getters: {
