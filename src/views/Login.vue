@@ -38,7 +38,7 @@ export default {
     login() {
       const { username, password } = this
       this.$store.dispatch('login', { username, password })
-        .then(() => { this.$router.push('/about') })
+        .then(() => { this.$router.push('/') })
         .catch(err => console.error(err.response.data.errorText))
     }
   }

@@ -33,7 +33,7 @@ export default {
   name: 'Main',
   data: () => ({
     links: [
-      {title: 'Профиль', url: '/about'},
+      {title: 'Профиль', url: '/'},
       {title: 'Объекты учёта', url: '/objects'}
     ]
   }),

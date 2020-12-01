@@ -7,12 +7,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'main',
-    component: () => import('@/layouts/MainLayout.vue')
-  },
-  {
-    path: '/about',
     name: 'about',
+    meta: {auth: true},
     component: () => import('@/views/User.vue')
   },
   {
@@ -23,11 +19,13 @@ const routes = [
   {
     path: '/objects',
     name: 'objects',
+    meta: {auth: true},
     component: () => import('@/views/Objects.vue')
   },
   {
     path: '/indications',
     name: 'indications',
+    meta: {auth: true},
     component: () => import('@/views/ObjectIndications.vue')
   }
 ]
@@ -36,6 +34,17 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+  const requireAuth = to.matched.some(record => record.meta.auth)
+
+  if (requireAuth && !token) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router
