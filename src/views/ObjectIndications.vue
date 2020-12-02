@@ -84,11 +84,11 @@ export default {
     this.indications = await this.$store.dispatch('getObjectIndications', this.currentObject.id)
   },
   methods: {
-    addIndication() {
+    async addIndication() {
       const period = this.period
       const value = +this.value
       const ownerId = +this.currentObject.id
-      this.$store.dispatch('addIndications', {ownerId, period, value})
+      await this.$store.dispatch('addIndications', {ownerId, period, value})
     },
     async removeIndications() {
       await this.$store.dispatch('removeIndications', this.toRemove)
