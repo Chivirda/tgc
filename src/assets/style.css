@@ -179,8 +179,7 @@
 }
 
 .table {
-  max-width: 960px;
-  min-width: 80%;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -219,23 +218,47 @@ tr:hover > th {
 }
 
 .btn-wrapper {
-  max-width: 960px;
-  min-width: 80%;
+  display: flex;
+  justify-content: space-between;
   margin-top: 30px;
 }
 
-.btn-add {
-  width: 100%;
+.btn-add,
+.btn-remove {
+  width: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #48C9B0;
   color: #ffffff;
   font-size: 32px;
   font-weight: bold;
 }
 
+.btn-add {
+  background-color: #48C9B0;
+}
+
+.btn-remove {
+  background-color: #e74c3c;
+}
+
 .btn-add:hover {
   cursor: pointer;
   background-color: #1ABC9C;
+}
+
+.btn-remove:hover {
+  cursor: pointer;
+  background-color: #cb4335;
+}
+
+
+@media (min-width: 1400px) {
+  .table {
+    width: 960px;
+  }
+
+  .btn-wrapper {
+    width: 960px;
+  }
 }

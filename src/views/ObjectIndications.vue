@@ -20,11 +20,12 @@
       </tr>
     </table>
     <div class="btn-wrapper">
-      <div class="btn-add" @click="showModal=true">+</div>
+      <div class="btn-remove" @click="showRemoveModal=true" title="Удалить показания">-</div>
+      <div class="btn-add" @click="showAddModal=true" title="Добавить показания">+</div>
     </div>
 
-    <Modal v-model="showModal" title="Добавить показания">
-      <form @submit="addIndication" class="add-indications-form">
+    <Modal v-model="showAddModal" title="Добавить показания">
+      <form @submit="addIndication">
         <div class="input-wrap">
           <input required v-model="period" class="form-input" type="datetime-local" placeholder="Период">
         </div>
@@ -34,6 +35,28 @@
         <div class="button-wrap">
           <button type="submit" class="login-form-button">
             Добавить
+          </button>
+        </div>
+      </form>
+    </Modal>
+
+    <Modal v-model="showRemoveModal" title="Удалить показания">
+      <form @submit="removeIndications">
+        <div class="input-wrap">
+          <select v-model="toRemove">
+            <option disabled value="">Выберите показания для удаления</option>
+            <option
+              v-for="indication in indications"
+              :key="indication.id"
+              :value="indication.id"
+            >
+              {{ indication.value }}
+            </option>
+          </select>
+        </div>
+        <div class="button-wrap">
+          <button type="submit" class="login-form-button">
+            Удалить
           </button>
         </div>
       </form>
@@ -50,7 +73,9 @@ export default {
   data: () => ({
     currentObject: {},
     indications: [],
-    showModal: false,
+    showAddModal: false,
+    showRemoveModal: false,
+    toRemove: '',
     period: '',
     value: ''
   }),
@@ -65,9 +90,8 @@ export default {
       const ownerId = +this.currentObject.id
       this.$store.dispatch('addIndications', {ownerId, period, value})
     },
-    setCurrentDate() {
-      let dateInput = document.querySelector('input[type="datetime-local"]')
-      dateInput.value = new Date()
+    async removeIndications() {
+      await this.$store.dispatch('removeIndications', this.toRemove)
     }
   },
   components: {

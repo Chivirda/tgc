@@ -127,6 +127,16 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+    removeIndications({commit}, toRemove) {
+      return new Promise(resolve => {
+        axios.delete(`http://aspt.tgc2-energo.ru/Indication/${toRemove}`, {
+          headers: { 'Authorization' : `Bearer ${this.state.token}`}
+        })
+        .then(resp => {
+          resolve(resp)
+        })
+      })
     }
   },
   getters: {
