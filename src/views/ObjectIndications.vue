@@ -24,7 +24,7 @@
     </div>
 
     <Modal v-model="showModal" title="Добавить показания">
-      <form @submit.prevent="addIndication" class="add-indications-form">
+      <form @submit="addIndication" class="add-indications-form">
         <div class="input-wrap">
           <input required v-model="period" class="form-input" type="datetime-local" placeholder="Период">
         </div>
@@ -63,8 +63,7 @@ export default {
       const period = this.period
       const value = +this.value
       const ownerId = +this.currentObject.id
-      this.$store.dispatch('addIndications', JSON.stringify({ownerId, period, value}))
-      console.log('Indication object:', JSON.stringify({ownerId, period, value}))
+      this.$store.dispatch('addIndications', {ownerId, period, value})
     },
     setCurrentDate() {
       let dateInput = document.querySelector('input[type="datetime-local"]')

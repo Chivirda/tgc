@@ -112,15 +112,19 @@ export default new Vuex.Store({
       localStorage.setItem('currentObjectName', object.pointName)
       commit('setCurrentObject', object)
     },
-    addIndications(indications) {
-      return new Promise(resolve => {
-        axios.post(`http://aspt.tgc2-energo.ru/indication/${indications}`, {
+    addIndications({commit}, indications) {
+      return new Promise((resolve, reject) => {
+        axios.post('http://aspt.tgc2-energo.ru/Indication/', indications, {
           headers: { 
-            'Authorization' : `Bearer ${this.state.token}`
+            'Authorization' : `Bearer ${this.state.token}`,
+            'Content-Type': 'application/json'
           }
         })
         .then(resp => {
           resolve(resp.data)
+        })
+        .catch(err => {
+          reject(err)
         })
       })
     }
