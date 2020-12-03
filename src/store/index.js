@@ -2,22 +2,24 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import qs from 'qs'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     status: '',
-    token: localStorage.getItem('token') || '',
+    token: '',
     loginInfo: {},
     user: {},
     objects: [],
     objectInfo: [],
     currentObject: {
-      id: localStorage.getItem('currentObjectId') || '',
-      pointName: localStorage.getItem('currentObjectName') || ''
+      id: '',
+      pointName: ''
     }
   },
+  plugins: [createPersistedState()],
   mutations: {
     auth_request(state) {
       state.status = 'loading'
@@ -114,6 +116,7 @@ export default new Vuex.Store({
     },
     addIndications({commit}, indications) {
       return new Promise((resolve, reject) => {
+        alert(`POST: ${indications.value}`)
         axios.post('http://aspt.tgc2-energo.ru/Indication/', indications, {
           headers: { 
             'Authorization' : `Bearer ${this.state.token}`,
@@ -130,6 +133,7 @@ export default new Vuex.Store({
     },
     removeIndications({commit}, toRemove) {
       return new Promise(resolve => {
+        alert(`DELETE: ${toRemove}`)
         axios.delete(`http://aspt.tgc2-energo.ru/Indication/${toRemove}`, {
           headers: { 'Authorization' : `Bearer ${this.state.token}`}
         })
