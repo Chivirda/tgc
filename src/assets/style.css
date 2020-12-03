@@ -252,6 +252,27 @@ tr:hover > th {
   background-color: #cb4335;
 }
 
+.sort-wrap {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.sorted {
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+}
+
+.sorted {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.sorted:hover,
+.sorted > option:hover {
+  cursor: pointer;
+}
 
 @media (min-width: 1400px) {
   .table {

@@ -110,13 +110,10 @@ export default new Vuex.Store({
       })
     },
     setCurrentObject({commit}, object) {
-      localStorage.setItem('currentObjectId', object.id)
-      localStorage.setItem('currentObjectName', object.pointName)
       commit('setCurrentObject', object)
     },
     addIndications({commit}, indications) {
       return new Promise((resolve, reject) => {
-        alert(`POST: ${indications.value}`)
         axios.post('http://aspt.tgc2-energo.ru/Indication/', indications, {
           headers: { 
             'Authorization' : `Bearer ${this.state.token}`,
@@ -133,7 +130,6 @@ export default new Vuex.Store({
     },
     removeIndications({commit}, toRemove) {
       return new Promise(resolve => {
-        alert(`DELETE: ${toRemove}`)
         axios.delete(`http://aspt.tgc2-energo.ru/Indication/${toRemove}`, {
           headers: { 'Authorization' : `Bearer ${this.state.token}`}
         })
