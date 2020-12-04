@@ -38,9 +38,23 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
+
+  function parseJwt (token) {
+    var base64Url = token.split('.')[1]
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    }).join(''))
+
+    return JSON.parse(jsonPayload)
+  }
+
+  const expireTime = Date(parseJwt(token).exp)
+  const now = Date.now() / 1000
+  console.log('Now', Date(now))
   const requireAuth = to.matched.some(record => record.meta.auth)
 
-  if (requireAuth && !token) {
+  if (requireAuth && expireTime < now) {
     next('/login')
   } else {
     next()

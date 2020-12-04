@@ -24,16 +24,6 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn
     }
-  },
-  mounted: function() {
-    this.$http.interceptors.response.use(undefined, function(err) {
-      return new Promise((resolve, reject) => {
-        if (err.status === 401 && err.config && !err.config._isRetryRequest) {
-          this.$store.dispatch('logout')
-        }
-        throw err
-      })
-    })
   }
 }
 </script>
