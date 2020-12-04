@@ -1,5 +1,5 @@
 <template>
-  <div class="about" v-if="isLoggedIn">
+  <div class="main" v-if="isLoggedIn">
     <nav class="navigation">
       <ul class="navigation-list">
         <router-link
@@ -16,7 +16,7 @@
       </ul>
       <span @click="logout" class="logout">Logout</span>
     </nav>
-    <div class="main">
+    <div class="content">
       <router-view />
     </div>
   </div>

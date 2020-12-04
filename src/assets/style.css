@@ -118,7 +118,7 @@
   cursor: pointer;
 }
 
-.about {
+.main {
   display: grid;
   grid-template-columns: 150px auto;
 }
@@ -170,7 +170,7 @@
   color: #000000;
 }
 
-.main {
+.content {
   padding: 30px;
 }
 

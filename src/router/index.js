@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'about',
+    name: 'main',
     meta: {auth: true},
     component: () => import('@/views/User.vue')
   },
