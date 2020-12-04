@@ -37,7 +37,7 @@
     </div>
 
     <Modal v-model="showAddModal" title="Добавить показания">
-      <form @submit="addIndication">
+      <form @submit.prevent="addIndication">
         <div class="input-wrap">
           <input required v-model="period" class="form-input" type="datetime-local" placeholder="Период">
         </div>
@@ -53,7 +53,7 @@
     </Modal>
 
     <Modal v-model="showRemoveModal" title="Удалить показания">
-      <form @submit="removeIndications">
+      <form @submit.prevent="removeIndications">
         <div class="input-wrap">
           <select v-model="toRemove">
             <option disabled value="">Выберите показания для удаления</option>
@@ -112,9 +112,15 @@ export default {
       const value = +this.value
       const ownerId = +this.currentObject.id
       await this.$store.dispatch('addIndications', {ownerId, period, value})
+      setTimeout(() => {
+        location.href = location.href
+      }, 100);
     },
     async removeIndications() {
       await this.$store.dispatch('removeIndications', this.toRemove)
+      setTimeout(() => {
+        location.href = location.href
+      }, 100);
     }
   },
   components: {
