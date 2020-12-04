@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <MainLayout>
+    <MainLayout v-if="isLoggedIn">
       <router-view />
-    </MainLayout>    
+    </MainLayout>
+    <login v-else/>
   </div>
 </template>
 
@@ -12,12 +13,19 @@
 
 <script>
 import MainLayout from '@/layouts/MainLayout.vue'
+import Login from '@/views/Login.vue'
 
 export default {
   components: {
-    MainLayout
+    MainLayout,
+    Login
   },
-  created: function() {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    }
+  },
+  mounted: function() {
     this.$http.interceptors.response.use(undefined, function(err) {
       return new Promise((resolve, reject) => {
         if (err.status === 401 && err.config && !err.config._isRetryRequest) {
