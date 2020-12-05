@@ -55,7 +55,7 @@
     <Modal v-model="showRemoveModal" title="Удалить показания">
       <form @submit.prevent="removeIndications">
         <div class="input-wrap">
-          <select v-model="toRemove">
+          <select v-model="toRemove" class="remove-select">
             <option disabled value="">Выберите показания для удаления</option>
             <option
               v-for="indication in indications"
